@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caesar's Cipher</title>
+
+  <style>
+    html {
+      --primary: #0abf53;
+      --font: 'Andale Mono', 'Menlo', 'Courier New', Courier, monospace;
+      --dark: #222;
+      --gray: #D8D8D8;
+      --white: #FFF;
+      --darkGray: #A2A2A2;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #FFF 75%, #FFF8F8 100%);
+      font-family: var(--font);
+      /*background-image: url(https://www.kirupa.com/images/circles_bottom.svg);*/
+      background-repeat: no-repeat;
+      background-position: calc(100% + 150px) calc(100% + 50px);
+      background-size: 450px;
+      padding: 20px;
+    }
+
+    h1 {
+      color: var(--primary);
+      border-bottom: 5px solid var(--primary);
+      padding: 20px;
+      margin-top: 0px;
+      font-size: 3em;
+      font-weight: 100;
+    }
+
+    label {
+      margin: 20px;
+      color: var(--darkGray);
+    }
+
+    input {
+      display: block;
+      font-family: var(--font);
+      font-size: 2em;
+      padding: 10px;
+      font-weight: 100;
+      border: 3px solid var(--gray);
+      margin: 20px;
+      background-color: var(--white);
+      width: calc(100% - 65px);
+    }
+
+    #encrypted {
+      border-color: var(--dark);
+      background-color: var(--dark);
+      color: var(--white);
+    }
+
+    .mainContainer {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    hr {
+      border: 1px solid var(--primary);
+      margin: 50px 0px;
+    }
+
+    .orange img {
+      width: 50px;
+      display: block;
+      margin: 0 auto;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="mainContainer">
+  <h1>Vault Cipher</h1>
+
+  <label for="original">Encrypted Token</label>
+  <input id="original" type="text" value="" readonly>
+
+  <label for="shift">Shift</label>
+  <input id="shift" type="number" value="" readonly>
+
+  <hr>
+
+  <label for="encrypted">Decrypted Token</label>
+  <button onclick = "startEncryption()" >Click me for the answer</button>
+  <input id="encrypted" type="text" value="" readonly placeholder="Decryption will show here">
+
+  <a class="orange" href="https://www.adyen.com">
+    <img class="orange" src="Adyen logo - Green RGB.png">
+  </a>
+</div>
+
+  <script>
+let originalInput = document.querySelector("#original");
+let shiftInput = document.querySelector("#shift");
+let encryptedInput = document.querySelector("#encrypted");
+
+let originalMessage = originalInput.value;
+let shiftValue = shiftInput.value;
+
+// originalInput.addEventListener("input", characterEntered, false);
+// shiftInput.addEventListener("input", numberEntered, false);
+
+var questions = ["vault", "token", "pan", "pii", "game", "board", "Pay", "Due", "Buy", "Fee", "Tip", "Cash", "Debt", "Card", "Bill", "Loan", "Check", "Price", "Spend", "Funds", "PayPal", "Twint", "visa", "amex"];
+var shifts = [1, 2, 3, 4]
+
+document.addEventListener("DOMContentLoaded", function(){
+  var randomWord = questions[ Math.floor(Math.random()*1)];
+  originalMessage = randomWord;
+  originalInput.value = originalMessage; // niet nodig tot later?
+
+  var randomShift = shifts[ Math.floor(Math.random()*4)];
+  shiftValue = randomShift;
+  shiftInput.value = shiftValue
+
+  let decryptedMessage = "";
+  let shift = shiftInput.value;
+  console.log(shift);
+
+  for (letter of originalMessage) {
+    decryptedMessage += shiftLetter(letter, shift);
+  }
+
+  console.log(decryptedMessage);
+  originalInput.value = decryptedMessage;
+
+});
+
+function startEncryption() {
+  encryptedInput.value = originalMessage;
+}
+
+
+function shiftLetter(letter, shift) {
+  let newLetter = "";
+
+  let letterCode = letter.charCodeAt(0);
+  let newLetterCode = letterCode + (shift % 26);
+
+  if (newLetterCode < 97) {
+    // If new letter goes below "a" aka character code 97
+    newLetterCode += 26;
+  } else if (newLetterCode > 122) {
+    // If new letter goes past "z" aka character code 122
+    newLetterCode -= 26;
+  }
+
+  newLetter = String.fromCharCode(newLetterCode);
+  
+  return newLetter;
+}
+  </script>
+</body>
+
+</html>
