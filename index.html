@@ -114,13 +114,13 @@ let shiftValue = shiftInput.value;
 // originalInput.addEventListener("input", characterEntered, false);
 // shiftInput.addEventListener("input", numberEntered, false);
 
-var questions = ["vault", "token", "pan", "pii", "game", "board", "Pay", "Due", "Buy", "Fee", "Tip", "Cash", "Debt", "Card", "Bill", "Loan", "Check", "Price", "Spend", "Funds", "PayPal", "Twint", "visa", "amex"];
+var questions = ["vault", "token", "pan", "pii", "game", "board", "pay", "bill", "due", "fee", "tip", "cash", "debt", "card", "bill", "loan", "check", "price", "spend", "funds", "paypal", "twint", "visa", "amex"];
 var shifts = [1, 2, 3, 4]
 
 document.addEventListener("DOMContentLoaded", function(){
-  var randomWord = questions[ Math.floor(Math.random()*1)];
+  var randomWord = questions[ Math.floor(Math.random()*24)];
   originalMessage = randomWord;
-  originalInput.value = originalMessage; // niet nodig tot later?
+  originalInput.value = originalMessage;
 
   var randomShift = shifts[ Math.floor(Math.random()*4)];
   shiftValue = randomShift;
